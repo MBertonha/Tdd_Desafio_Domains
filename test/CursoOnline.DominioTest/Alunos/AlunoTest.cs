@@ -4,6 +4,7 @@ using CursoOnline.Dominio.Cursos;
 using ExpectedObjects;
 using CursoOnline.Dominio.Alunos;
 using Xunit;
+using CursoOnline.DominioTest._Builders;
 
 namespace CursoOnline.DominioTest.Alunos
 {
@@ -41,7 +42,17 @@ namespace CursoOnline.DominioTest.Alunos
 
             alunoEsperado.ToExpectedObject().ShouldMatch(aluno);
         }
+
+        [Fact]
+        public void DeveAlterarNome()
+        {
+            var novoNomeEsperado = _faker.Person.FullName;
+            var aluno = AlunoBuilder.Novo().Build();
+
+            aluno.AlterarNome(novoNomeEsperado);
+
+            Assert.Equal(novoNomeEsperado, aluno.Nome);
+        }
+
     }
-
-
 }

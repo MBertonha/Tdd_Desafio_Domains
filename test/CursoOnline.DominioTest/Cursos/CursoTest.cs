@@ -90,17 +90,6 @@ namespace CursoOnline.DominioTest.Cursos
             Assert.Equal(nomeEsperado, curso.Nome);
         }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public void NaoDeveAlterarComNomeInvalido(string nomeInvalido)
-        {
-            var curso = CursoBuilder.Novo().Build();
-
-            Assert.Throws<ExcecaoDeDominio>(() => curso.AlterarNome(nomeInvalido))
-                .ComMensagem(Resource.NomeInvalido);
-        }
-
         [Fact]
         public void DeveAlterarCargaHoraria()
         {

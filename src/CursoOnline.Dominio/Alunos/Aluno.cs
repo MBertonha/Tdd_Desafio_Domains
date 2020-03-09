@@ -27,5 +27,14 @@ namespace CursoOnline.Dominio.Alunos
             Cpf = cpf;
             PublicoAlvo = publicoAlvo;
         }
+
+        public void AlterarNome(string nome)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(string.IsNullOrEmpty(nome), Resource.ValorInvalido)
+                .DispararExcecaoSeExistir();
+
+            Nome = nome;
+        }
     }
 }
