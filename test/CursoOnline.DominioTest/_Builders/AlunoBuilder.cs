@@ -11,8 +11,8 @@ namespace CursoOnline.DominioTest._Builders
         private int _id;
         private string _nome = "Matheus Bertonha";
         private string _email = "matheus@hotmail.com";
-        private string _cpf = "44800199875";
-        private string _dataNasc = "14/10/2000";
+        private string _cpf = "26138991079";
+        private string _dataNasc = "14/05/2000";
         private PublicoAlvo _publicoAlvo = PublicoAlvo.Estudante;
 
         public static AlunoBuilder Novo()
