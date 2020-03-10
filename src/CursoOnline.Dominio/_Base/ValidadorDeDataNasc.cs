@@ -9,8 +9,16 @@ namespace CursoOnline.Dominio._Base
     {
         public static bool ValidarData(this Entidade nomeQualquer, string data)
         {
-            Regex r = new Regex(@"(\d{2}\/\d{2}\/\d{4} \d{2}:\d{2})");
-            return r.Match(data).Success;
+            Regex r = new Regex(@"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$");
+            
+            if (r.IsMatch(data))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
