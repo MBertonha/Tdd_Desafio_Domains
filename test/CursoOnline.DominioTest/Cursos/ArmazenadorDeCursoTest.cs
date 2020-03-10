@@ -6,6 +6,7 @@ using CursoOnline.DominioTest._Builders;
 using CursoOnline.DominioTest._Util;
 using Moq;
 using Xunit;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.DominioTest.Cursos
 {
@@ -14,6 +15,7 @@ namespace CursoOnline.DominioTest.Cursos
         private readonly CursoDto _cursoDto;
         private readonly ArmazenadorDeCurso _armazenadorDeCurso; 
         private readonly Mock<ICursoRepositorio> _cursoRepositorioMock;
+        private readonly Mock<IConversorDePublicoAlvo> _conversorDePublicoAlvo;
 
         public ArmazenadorDeCursoTest()
         {
@@ -28,7 +30,8 @@ namespace CursoOnline.DominioTest.Cursos
             };
 
             _cursoRepositorioMock = new Mock<ICursoRepositorio>();
-            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositorioMock.Object);
+            _conversorDePublicoAlvo = new Mock<IConversorDePublicoAlvo>();
+            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositorioMock.Object, _conversorDePublicoAlvo.Object);
         }
 
         [Fact]

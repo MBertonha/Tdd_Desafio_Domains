@@ -6,6 +6,7 @@ using CursoOnline.Dominio.Alunos;
 using Xunit;
 using CursoOnline.DominioTest._Builders;
 using System;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.DominioTest.Alunos
 {

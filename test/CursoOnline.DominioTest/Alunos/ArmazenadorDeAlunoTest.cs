@@ -14,7 +14,8 @@ namespace CursoOnline.DominioTest.Alunos
     {
         private readonly AlunoDto _alunoDto;
         private readonly ArmazenadorDeAluno _armazenadorDeAluno;
-        private readonly Mock<IAlunoRepositorio> _alunoRepositorioMock;
+        private readonly Mock<IAlunoRepositorio> _alunoRepositorio;
+        private readonly Mock<IConversorDePublicoAlvo> _conversorDePublicoAlvo;
 
         public ArmazenadorDeAlunoTest()
         {
@@ -29,8 +30,9 @@ namespace CursoOnline.DominioTest.Alunos
                 DataNasc = _dta.ToString("dd/MM/yyyy")
             };
 
-            _alunoRepositorioMock = new Mock<IAlunoRepositorio>();
-            _armazenadorDeAluno = new ArmazenadorDeAluno(_alunoRepositorioMock.Object);
+            _alunoRepositorio = new Mock<IAlunoRepositorio>();
+            _conversorDePublicoAlvo = new Mock<IConversorDePublicoAlvo>();
+            _armazenadorDeAluno = new ArmazenadorDeAluno(_alunoRepositorio.Object, _conversorDePublicoAlvo.Object);
         }
 
         [Fact]
@@ -38,17 +40,14 @@ namespace CursoOnline.DominioTest.Alunos
         {
             _armazenadorDeAluno.Armazenar(_alunoDto);
 
-            _alunoRepositorioMock.Verify(r => r.Adicionar(
-                It.Is<Aluno>(
-                    c => c.Nome == _alunoDto.Nome
-                )));
+            _alunoRepositorio.Verify(r => r.Adicionar(It.Is<Aluno>(a => a.Nome == _alunoDto.Nome)));
         }
 
         [Fact]
         public void NaoDeveAdicionarAlunoComMesmoCpfDeOutroJaSalvo()
         {
             var cpfJaSalvo = AlunoBuilder.Novo().ComId(432).ComCpf(_alunoDto.Cpf).Build();
-            _alunoRepositorioMock.Setup(r => r.ObterPeloCpf(_alunoDto.Cpf)).Returns(cpfJaSalvo);
+            _alunoRepositorio.Setup(r => r.ObterPeloCpf(_alunoDto.Cpf)).Returns(cpfJaSalvo);
 
             Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeAluno.Armazenar(_alunoDto))
                 .ComMensagem(Resource.CpfDoAlunoJaExiste);

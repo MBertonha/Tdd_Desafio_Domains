@@ -26,11 +26,10 @@ namespace CursoOnline.DominioTest.PublicosAlvo
         [Fact]
         public void NaoConverterPublicoAlvoInvalido()
         {
-            const string publicoAlvoInvalido = "Invalido";  
-            var conversor = new ConversorDePublicoAlvo();
+            const string publicoAlvoInvalido = "Invalido";
 
-            Assert.ThrowsAsync<ExcecaoDeDominio>(() =>
-                _conversor.Converter(publicoAlvoInvalido))
+            Assert.Throws<ExcecaoDeDominio>(() =>
+                    _conversor.Converter(publicoAlvoInvalido))
                 .ComMensagem(Resource.PublicoAlvoInvalido);
         }
     }
