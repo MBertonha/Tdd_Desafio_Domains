@@ -2,13 +2,10 @@
 using Bogus.Extensions.Brazil;
 using CursoOnline.Dominio._Base;
 using CursoOnline.Dominio.Alunos;
-using CursoOnline.Dominio.Cursos;
+using CursoOnline.Dominio.PublicosAlvo;
 using CursoOnline.DominioTest._Builders;
 using CursoOnline.DominioTest._Util;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace CursoOnline.DominioTest.Alunos

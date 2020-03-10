@@ -1,5 +1,5 @@
 ﻿using CursoOnline.Dominio._Base;
-using CursoOnline.Dominio.Cursos;
+using CursoOnline.Dominio.PublicosAlvo;
 using System;
 using System.Collections.Generic;
 using System.Text;

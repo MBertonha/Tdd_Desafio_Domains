@@ -7,6 +7,7 @@ using CursoOnline.DominioTest._Util;
 using ExpectedObjects;
 using Xunit;
 using Xunit.Abstractions;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.DominioTest.Cursos
 {
@@ -42,7 +43,7 @@ namespace CursoOnline.DominioTest.Cursos
                 Descricao = _descricao
             };
 
-            var curso = new Curso(cursoEsperado.Nome, cursoEsperado.Descricao, cursoEsperado.CargaHoraria, cursoEsperado.PublicoAlvo, cursoEsperado.Valor);
+            var curso = new Curso(cursoEsperado.Nome, cursoEsperado.Descricao, cursoEsperado.CargaHoraria, PublicoAlvo.Empreendedor, cursoEsperado.Valor);
 
             cursoEsperado.ToExpectedObject().ShouldMatch(curso);
         }
