@@ -25,7 +25,7 @@ namespace CursoOnline.DominioTest.Alunos
             _faker = new Faker();
             _dta = _faker.Date.Past();
 
-            _nome = _faker.Random.Word();
+            _nome = _faker.Person.FullName;
             _email = _faker.Person.Email;
             _cpf = _faker.Person.Cpf();
             _publicoAlvo = PublicoAlvo.Universitário;
@@ -59,6 +59,17 @@ namespace CursoOnline.DominioTest.Alunos
             aluno.AlterarNome(novoNomeEsperado);
 
             Assert.Equal(novoNomeEsperado, aluno.Nome);
+        }
+
+        [Fact]
+        public void DeveAlterarDataNasc()
+        {
+            var dataAux = _faker.Date.Past();
+            var novaDataEsperada = dataAux.ToString("dd/MM/yyyy");
+            var aluno = AlunoBuilder.Novo().Build();
+
+            aluno.AlteraDataNasc(novaDataEsperada);
+            Assert.Equal(novaDataEsperada, aluno.DataNasc);
         }
 
     }

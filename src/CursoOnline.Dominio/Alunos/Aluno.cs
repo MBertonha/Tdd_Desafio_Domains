@@ -39,5 +39,14 @@ namespace CursoOnline.Dominio.Alunos
 
             Nome = nome;
         }
+
+        public void AlteraDataNasc(string newData)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(this.ValidarData(newData), Resource.DataInvalida)
+                .DispararExcecaoSeExistir();
+
+            DataNasc = newData;
+        }
     }
 }
