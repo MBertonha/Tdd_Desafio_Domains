@@ -13,5 +13,8 @@
         public static string DataInvalida = "Data inválido";
         public static string NomeDoAlunoJaExiste = "Nome do aluno já consta no banco de dados";
         public static string CpfDoAlunoJaExiste = "CPF do aluno já consta no banco de dados";
+
+        public static string AlunoInvalido = "Aluno inválido";
+        public static string CursoInvalido = "Curso inválido";
     }
 }
