@@ -48,16 +48,6 @@ namespace CursoOnline.DominioTest.Alunos
         }
 
         [Fact]
-        public void NaoDeveAdicionarAlunoComMesmoNomeDeOutroJaSalvo()
-        {
-            var alunoJaSalvo = AlunoBuilder.Novo().ComId(432).ComNome(_alunoDto.Nome).Build();
-            _alunoRepositorioMock.Setup(r => r.ObterPeloNome(_alunoDto.Nome)).Returns(alunoJaSalvo);
-
-            Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeAluno.Armazenar(_alunoDto))
-                .ComMensagem(Resource.NomeDoAlunoJaExiste);
-        }
-
-        [Fact]
         public void NaoDeveAdicionarAlunoComMesmoCpfDeOutroJaSalvo()
         {
             var cpfJaSalvo = AlunoBuilder.Novo().ComId(432).ComCpf(_alunoDto.Cpf).Build();
@@ -65,18 +55,6 @@ namespace CursoOnline.DominioTest.Alunos
 
             Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeAluno.Armazenar(_alunoDto))
                 .ComMensagem(Resource.CpfDoAlunoJaExiste);
-        }
-
-        [Fact]
-        public void NaoDeveAdicionarNoRepositorioQuandoAlunoJaExiste()
-        {
-            _alunoDto.Id = 323;
-            var aluno = AlunoBuilder.Novo().Build();
-            _alunoRepositorioMock.Setup(r => r.ObterPorId(_alunoDto.Id)).Returns(aluno);
-
-            _armazenadorDeAluno.Armazenar(_alunoDto);
-
-            _alunoRepositorioMock.Verify(r => r.Adicionar(It.IsAny<Aluno>()), Times.Never);
         }
     }
 }
