@@ -9,9 +9,10 @@ namespace CursoOnline.DominioTest._Builders
     public class AlunoBuilder
     {
         private int _id;
-        private string _nome = "";
-        private string _email = "";
-        private string _cpf = "";
+        private string _nome = "Matheus Bertonha";
+        private string _email = "matheus@hotmail.com";
+        private string _cpf = "44800199875";
+        private string _dataNasc = "14/10/2000";
         private PublicoAlvo _publicoAlvo = PublicoAlvo.Estudante;
 
         public static AlunoBuilder Novo()
@@ -42,6 +43,11 @@ namespace CursoOnline.DominioTest._Builders
             _publicoAlvo = publicoAlvo;
             return this;
         }
+        public AlunoBuilder ComData(string dataNasc)
+        {
+            _dataNasc = dataNasc;
+            return this;
+        }
 
         public AlunoBuilder ComId(int id)
         {
@@ -51,7 +57,7 @@ namespace CursoOnline.DominioTest._Builders
 
         public Aluno Build()
         {
-            var aluno = new Aluno(_nome, _email, _cpf, _publicoAlvo);
+            var aluno = new Aluno(_nome, _email, _cpf, _dataNasc, _publicoAlvo);
 
             if (_id > 0)
             {

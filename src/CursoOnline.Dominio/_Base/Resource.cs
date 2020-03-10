@@ -10,5 +10,6 @@
 
         public static string EmailInvalido = "Email inválido";
         public static string CpfInvalido = "Cpf inválido";
+        public static string DataInvalida = "Data inválido";
     }
 }

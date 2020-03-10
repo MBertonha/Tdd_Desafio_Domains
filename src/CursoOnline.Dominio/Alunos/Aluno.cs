@@ -12,20 +12,23 @@ namespace CursoOnline.Dominio.Alunos
         public string Email { get; private set; }
         public string Cpf { get; private set; }
         public PublicoAlvo PublicoAlvo { get; private set; }
+        public string DataNasc { get; private set; }
         private Aluno() { }
 
-        public Aluno(string nome, string email, string cpf, PublicoAlvo publicoAlvo)
+        public Aluno(string nome, string email, string cpf, string dataNasc, PublicoAlvo publicoAlvo)
         {
             ValidadorDeRegra.Novo()
                 .Quando(string.IsNullOrEmpty(nome), Resource.NomeInvalido)
                 .Quando(this.ValidaEmail(email), Resource.EmailInvalido)
                 .Quando(!this.ValidaCPF(cpf), Resource.CpfInvalido)
+                .Quando(this.ValidarData(dataNasc), Resource.DataInvalida)
                 .DispararExcecaoSeExistir();
 
             Nome = nome;
             Email = email;
             Cpf = cpf;
             PublicoAlvo = publicoAlvo;
+            DataNasc = dataNasc;
         }
 
         public void AlterarNome(string nome)

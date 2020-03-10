@@ -5,6 +5,7 @@ using ExpectedObjects;
 using CursoOnline.Dominio.Alunos;
 using Xunit;
 using CursoOnline.DominioTest._Builders;
+using System;
 
 namespace CursoOnline.DominioTest.Alunos
 {
@@ -15,16 +16,20 @@ namespace CursoOnline.DominioTest.Alunos
         private readonly string _email;
         private readonly string _cpf;
         private readonly PublicoAlvo _publicoAlvo;
+        private readonly string _dataNasc;
         private readonly Faker _faker;
+        private readonly DateTime _dta;
 
         public AlunoTest()
         {
             _faker = new Faker();
+            _dta = _faker.Date.Past();
 
             _nome = _faker.Random.Word();
             _email = _faker.Person.Email;
             _cpf = _faker.Person.Cpf();
             _publicoAlvo = PublicoAlvo.Universitário;
+            _dataNasc = _dta.ToString("dd/MM/yyyy");
         }
 
         [Fact]
@@ -35,10 +40,12 @@ namespace CursoOnline.DominioTest.Alunos
                 Nome = _nome,
                 Email = _email,
                 Cpf = _cpf,
-                PublicoAlvo = _publicoAlvo
+                PublicoAlvo = _publicoAlvo,
+                DataNasc = _dataNasc
+                
             };
 
-            var aluno = new Aluno(alunoEsperado.Nome, alunoEsperado.Email, alunoEsperado.Cpf, alunoEsperado.PublicoAlvo);
+            var aluno = new Aluno(alunoEsperado.Nome, alunoEsperado.Email, alunoEsperado.Cpf, alunoEsperado.DataNasc, alunoEsperado.PublicoAlvo);
 
             alunoEsperado.ToExpectedObject().ShouldMatch(aluno);
         }
