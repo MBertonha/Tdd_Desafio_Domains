@@ -55,9 +55,9 @@ namespace CursoOnline.DominioTest._Builders
             return this;
         }
 
-        public Aluno Build()
+        public Dominio.Alunos.Aluno Build()
         {
-            var aluno = new Aluno(_nome, _email, _cpf, _dataNasc, _publicoAlvo);
+            var aluno = new Dominio.Alunos.Aluno(_nome, _email, _cpf, _dataNasc, _publicoAlvo);
 
             if (_id > 0)
             {

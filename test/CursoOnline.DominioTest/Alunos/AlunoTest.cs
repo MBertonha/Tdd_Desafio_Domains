@@ -45,7 +45,7 @@ namespace CursoOnline.DominioTest.Alunos
                 
             };
 
-            var aluno = new Aluno(alunoEsperado.Nome, alunoEsperado.Email, alunoEsperado.Cpf, alunoEsperado.DataNasc, alunoEsperado.PublicoAlvo);
+            var aluno = new Dominio.Alunos.Aluno(alunoEsperado.Nome, alunoEsperado.Email, alunoEsperado.Cpf, alunoEsperado.DataNasc, alunoEsperado.PublicoAlvo);
 
             alunoEsperado.ToExpectedObject().ShouldMatch(aluno);
         }
@@ -71,6 +71,5 @@ namespace CursoOnline.DominioTest.Alunos
             aluno.AlteraDataNasc(novaDataEsperada);
             Assert.Equal(novaDataEsperada, aluno.DataNasc);
         }
-
     }
 }

@@ -12,7 +12,7 @@ namespace CursoOnline.DominioTest.Cursos
     public class ArmazenadorDeCursoTest
     {
         private readonly CursoDto _cursoDto;
-        private readonly ArmazenadorDeCurso _armazenadorDeCurso;
+        private readonly ArmazenadorDeCurso _armazenadorDeCurso; 
         private readonly Mock<ICursoRepositorio> _cursoRepositorioMock;
 
         public ArmazenadorDeCursoTest()
