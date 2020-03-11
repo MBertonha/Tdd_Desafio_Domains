@@ -95,5 +95,15 @@ namespace CursoOnline.DominioTest.Matriculas
                 MatriculaBuilder.Novo().ComAluno(aluno).ComCurso(curso).Build())
                 .ComMensagem(Resource.PublicoAlvoDiferente);
         }
+
+        [Fact]
+        public void DeveCancelarMatricula()
+        {
+            var matricula = MatriculaBuilder.Novo().Build();
+
+            matricula.Cancelar();
+
+            Assert.True(matricula.Cancelada);
+        }
     }
 }

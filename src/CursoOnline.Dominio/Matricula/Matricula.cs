@@ -9,10 +9,13 @@ namespace CursoOnline.Dominio.Matricula
 {
     public class Matricula
     {
+        public object matricula;
+
         public Aluno Aluno { get; private set; }
         public Curso Curso { get; private set; }
         public double ValorPago { get; private set; }
         public bool TemDesconto { get; private set; }
+        public bool Cancelada { get; private set; }
 
         public Matricula(Aluno aluno, Curso curso, double valorPago)
         {
@@ -28,6 +31,11 @@ namespace CursoOnline.Dominio.Matricula
             Curso = curso;
             ValorPago = valorPago;
             TemDesconto = valorPago < Curso.Valor;
+        }
+
+        public void Cancelar()
+        {
+            Cancelada = true;
         }
     }
 }
