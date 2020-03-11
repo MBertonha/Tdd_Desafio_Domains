@@ -16,5 +16,9 @@
 
         public static string AlunoInvalido = "Aluno inválido";
         public static string CursoInvalido = "Curso inválido";
+
+        public static string PublicoAlvoDiferente = "publico alvo diferente";
+        public static string CursoNaoEncontrado = "Curso não encontrado";
+        public static string AlunoNaoEncontrado = "Aluno não encontrado";
     }
 }
