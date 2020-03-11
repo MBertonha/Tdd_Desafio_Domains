@@ -46,11 +46,11 @@ namespace CursoOnline.DominioTest.Alunos
         [Fact]
         public void NaoDeveAdicionarAlunoComMesmoCpfDeOutroJaSalvo()
         {
-            var cpfJaSalvo = AlunoBuilder.Novo().ComId(432).ComCpf(_alunoDto.Cpf).Build();
-            _alunoRepositorio.Setup(r => r.ObterPeloCpf(_alunoDto.Cpf)).Returns(cpfJaSalvo);
+            var alunoComMesmoCpf = AlunoBuilder.Novo().ComId(34).Build();
+            _alunoRepositorio.Setup(r => r.ObterPeloCpf(_alunoDto.Cpf)).Returns(alunoComMesmoCpf);
 
             Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeAluno.Armazenar(_alunoDto))
-                .ComMensagem(Resource.CpfDoAlunoJaExiste);
+                .ComMensagem(Resource.CpfInvalido);
         }
     }
 }

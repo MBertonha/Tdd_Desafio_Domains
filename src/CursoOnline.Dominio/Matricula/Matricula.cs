@@ -12,6 +12,7 @@ namespace CursoOnline.Dominio.Matricula
         public Aluno Aluno { get; private set; }
         public Curso Curso { get; private set; }
         public double ValorPago { get; private set; }
+        public bool TemDesconto { get; private set; }
 
         public Matricula(Aluno aluno, Curso curso, double valorPago)
         {
@@ -25,6 +26,7 @@ namespace CursoOnline.Dominio.Matricula
             Aluno = aluno;
             Curso = curso;
             ValorPago = valorPago;
+            TemDesconto = valorPago < Curso.Valor;
         }
     }
 }

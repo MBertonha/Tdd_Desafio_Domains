@@ -13,6 +13,7 @@ namespace CursoOnline.Dominio.Cursos
         public ArmazenadorDeCurso(ICursoRepositorio cursoRepositorio, IConversorDePublicoAlvo conversorDePublicoAlvo)
         {
             _cursoRepositorio = cursoRepositorio;
+            _conversorDePublicoAlvo = conversorDePublicoAlvo;
         }
 
         public void Armazenar(CursoDto cursoDto)
@@ -24,8 +25,8 @@ namespace CursoOnline.Dominio.Cursos
                 .DispararExcecaoSeExistir();
 
             var publicoAlvo = _conversorDePublicoAlvo.Converter(cursoDto.PublicoAlvo);
-                
-            var curso = 
+
+            var curso =
                 new Curso(cursoDto.Nome, cursoDto.Descricao, cursoDto.CargaHoraria, publicoAlvo, cursoDto.Valor);
 
             if (cursoDto.Id > 0)
@@ -36,7 +37,7 @@ namespace CursoOnline.Dominio.Cursos
                 curso.AlterarCargaHoraria(cursoDto.CargaHoraria);
             }
 
-            if(cursoDto.Id == 0)
+            if (cursoDto.Id == 0)
                 _cursoRepositorio.Adicionar(curso);
         }
     }

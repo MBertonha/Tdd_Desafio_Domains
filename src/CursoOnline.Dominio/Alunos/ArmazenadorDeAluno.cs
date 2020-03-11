@@ -12,6 +12,7 @@ namespace CursoOnline.Dominio.Alunos
         public ArmazenadorDeAluno(IAlunoRepositorio alunoRepositorio, IConversorDePublicoAlvo conversorDePublicoAlvo)
         {
             _alunoRepositorio = alunoRepositorio;
+            _conversorDePublicoAlvo = conversorDePublicoAlvo;
         }
 
         public void Armazenar(AlunoDto alunoDto)
@@ -19,9 +20,8 @@ namespace CursoOnline.Dominio.Alunos
             var alunoComMesmoCpf = _alunoRepositorio.ObterPeloCpf(alunoDto.Cpf);
 
             ValidadorDeRegra.Novo()
-                .Quando(alunoComMesmoCpf != null && alunoComMesmoCpf.Id != alunoDto.Id, Resource.CpfDoAlunoJaExiste)
+                .Quando(alunoComMesmoCpf != null && alunoComMesmoCpf.Id != alunoDto.Id, Resource.CpfInvalido)
                 .DispararExcecaoSeExistir();
-        
 
             if (alunoDto.Id == 0)
             {
@@ -31,7 +31,7 @@ namespace CursoOnline.Dominio.Alunos
             }
             else
             {
-                var aluno = _alunoRepositorio.ObterPeloNome(alunoDto.Nome);
+                var aluno = _alunoRepositorio.ObterPorId(alunoDto.Id);
                 aluno.AlterarNome(alunoDto.Nome);
             }
         }

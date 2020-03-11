@@ -70,5 +70,16 @@ namespace CursoOnline.DominioTest.Matriculas
                 MatriculaBuilder.Novo().ComCurso(curso).ComValorPago(valorPagoMaiorQueCurso).Build())
                 .ComMensagem(Resource.ValorInvalido);
         }
+
+        [Fact]
+        public void DeveIndicarSeHouveDesconto()
+        {
+            var curso = CursoBuilder.Novo().ComValor(100).Build();
+            var valorPagoComDesconto = curso.Valor - 1;
+
+            var matricula = MatriculaBuilder.Novo().ComCurso(curso).ComValorPago(valorPagoComDesconto).Build();
+
+            Assert.True(matricula.TemDesconto);
+        }
     }
 }

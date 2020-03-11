@@ -15,7 +15,6 @@ namespace CursoOnline.DominioTest.Cursos
         private readonly CursoDto _cursoDto;
         private readonly ArmazenadorDeCurso _armazenadorDeCurso; 
         private readonly Mock<ICursoRepositorio> _cursoRepositorioMock;
-        private readonly Mock<IConversorDePublicoAlvo> _conversorDePublicoAlvo;
 
         public ArmazenadorDeCursoTest()
         {
@@ -30,8 +29,8 @@ namespace CursoOnline.DominioTest.Cursos
             };
 
             _cursoRepositorioMock = new Mock<ICursoRepositorio>();
-            _conversorDePublicoAlvo = new Mock<IConversorDePublicoAlvo>();
-            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositorioMock.Object, _conversorDePublicoAlvo.Object);
+            var conversorDePublicoAlvo = new Mock<IConversorDePublicoAlvo>();
+            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositorioMock.Object, conversorDePublicoAlvo.Object);
         }
 
         [Fact]
@@ -55,16 +54,6 @@ namespace CursoOnline.DominioTest.Cursos
 
             Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
                 .ComMensagem(Resource.NomeDoCursoJaExiste);
-        }
-
-        [Fact]
-        public void NaoDeveInformarPublicoAlvoInvalido()
-        {
-            var publicoAlvoInvalido = "Médico";
-            _cursoDto.PublicoAlvo = publicoAlvoInvalido;
-
-            Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
-                .ComMensagem(Resource.PublicoAlvoInvalido);
         }
 
         [Fact]
