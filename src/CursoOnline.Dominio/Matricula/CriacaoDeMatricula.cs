@@ -11,11 +11,13 @@ namespace CursoOnline.Dominio.Matricula
     {
         private readonly IAlunoRepositorio _alunoRepositorio;
         private readonly ICursoRepositorio _cursoRepositorio;
+        private readonly IMatriculaRepositorio _matriculaRepositorio;
 
-        public CriacaoDeMatricula(IAlunoRepositorio alunoRepositorio, ICursoRepositorio cursoRepositorio)
+        public CriacaoDeMatricula(IAlunoRepositorio alunoRepositorio, ICursoRepositorio cursoRepositorio, IMatriculaRepositorio matriculaRepositorio)
         {
             _alunoRepositorio = alunoRepositorio;
             _cursoRepositorio = cursoRepositorio;
+            _matriculaRepositorio = matriculaRepositorio;
         }
 
         public void Criar(MatriculaDto matriculaDto)
@@ -27,6 +29,10 @@ namespace CursoOnline.Dominio.Matricula
                 .Quando(curso == null, Resource.CursoNaoEncontrado)
                 .Quando(aluno == null, Resource.AlunoNaoEncontrado)
                 .DispararExcecaoSeExistir();
+
+            var matricula = new Matricula(aluno, curso, matriculaDto.ValorPago);
+
+            _matriculaRepositorio.Adicionar(matricula);
         }
     }
 }

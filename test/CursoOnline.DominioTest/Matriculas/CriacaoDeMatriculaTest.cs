@@ -12,25 +12,29 @@ namespace CursoOnline.DominioTest.Matriculas
 {
     public class CriacaoDeMatriculaTest
     {
-        private Mock<ICursoRepositorio> _cursoRepositorio;
-        private Mock<IAlunoRepositorio> _alunoRepositorio;
-        private MatriculaDto _matriculaDto;
-        private CriacaoDeMatricula _ciracaoDeMatricula;
+        private readonly Mock<ICursoRepositorio> _cursoRepositorio;
+        private readonly Mock<IAlunoRepositorio> _alunoRepositorio;
+        private readonly Mock<IMatriculaRepositorio> _matriculaRepositorio;
+        private readonly Aluno _aluno;
+        private readonly MatriculaDto _matriculaDto;
+        private readonly CriacaoDeMatricula _criracaoDeMatricula;
+        private readonly Curso _curso;
 
         public CriacaoDeMatriculaTest(){
 
             _cursoRepositorio = new Mock<ICursoRepositorio>();
             _alunoRepositorio = new Mock<IAlunoRepositorio>();
+            _matriculaRepositorio = new Mock<IMatriculaRepositorio>();
 
-            var aluno = AlunoBuilder.Novo().ComId(33).ComPublicoAlvo(PublicoAlvo.Universitário).Build();
-            _alunoRepositorio.Setup(r => r.ObterPorId(aluno.Id)).Returns(aluno);
+            _aluno = AlunoBuilder.Novo().ComId(33).ComPublicoAlvo(PublicoAlvo.Universitário).Build();
+            _alunoRepositorio.Setup(r => r.ObterPorId(_aluno.Id)).Returns(_aluno);
 
-            var curso = CursoBuilder.Novo().ComId(5).ComPublicoAlvo(PublicoAlvo.Universitário).Build();
-            _cursoRepositorio.Setup(r => r.ObterPorId(curso.Id)).Returns(curso);
+            _curso = CursoBuilder.Novo().ComId(5).ComPublicoAlvo(PublicoAlvo.Universitário).Build();
+            _cursoRepositorio.Setup(r => r.ObterPorId(_curso.Id)).Returns(_curso);
 
-            _matriculaDto = new MatriculaDto { AlunoId = aluno.Id, CursoId = curso.Id };
+            _matriculaDto = new MatriculaDto { AlunoId = _aluno.Id, CursoId = _curso.Id, ValorPago = _curso.Valor };
 
-            _ciracaoDeMatricula = new CriacaoDeMatricula(_alunoRepositorio.Object, _cursoRepositorio.Object);
+            _criracaoDeMatricula = new CriacaoDeMatricula(_alunoRepositorio.Object, _cursoRepositorio.Object, _matriculaRepositorio.Object);
         }
 
         [Fact]
@@ -40,7 +44,7 @@ namespace CursoOnline.DominioTest.Matriculas
             _cursoRepositorio.Setup(r => r.ObterPorId(_matriculaDto.CursoId)).Returns(cursoInvalido);
 
             Assert.Throws<ExcecaoDeDominio>(() =>
-                _ciracaoDeMatricula.Criar(_matriculaDto))
+                _criracaoDeMatricula.Criar(_matriculaDto))
                 .ComMensagem(Resource.CursoNaoEncontrado);
         }
 
@@ -51,8 +55,17 @@ namespace CursoOnline.DominioTest.Matriculas
             _alunoRepositorio.Setup(r => r.ObterPorId(_matriculaDto.AlunoId)).Returns(alunoInvalido);
 
             Assert.Throws<ExcecaoDeDominio>(() =>
-                _ciracaoDeMatricula.Criar(_matriculaDto))
+                _criracaoDeMatricula.Criar(_matriculaDto))
                 .ComMensagem(Resource.AlunoNaoEncontrado);
+        }
+
+        [Fact]
+        public void DeveAdicionarMatricula()
+        {
+            _criracaoDeMatricula.Criar(_matriculaDto);
+            _matriculaRepositorio.Verify(r => r.Adicionar(
+                It.Is<Matricula>(m => m.Aluno == _aluno && m.Curso == _curso))
+            );
         }
     }
 

@@ -12,5 +12,6 @@ namespace CursoOnline.Dominio.Matricula
         public Curso Curso { get; set; }
         public int AlunoId { get; set; }
         public int CursoId { get; set; }
+        public double ValorPago { get; set; }
     }
 }
